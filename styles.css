@@ -1,24 +1,66 @@
-/* =================
-   table of contents
-   =================
-   1. global styles
-   2. typography
-   3. layout
-   4. components    
-   ================= */
-
-/* ================
-   1. global styles
-   ================ */
+/* ==============
+table of contents
+=================
+1. global styles
+2. typography
+3. layout
+4. components    
+============== */
 
 /* =============
-   2. typography
-   ============= */
+1. global styles
+============= */
 
-/* =========
-   3. layout
-   ========= */
+/* ==========
+2. typography
+========== */
 
-/* =============
-   4. components
-   ============= */
+:root {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+/* ======
+3. layout
+====== */
+
+/* ==========
+4. components
+========== */
+
+.modal {
+  display: block;
+  z-index: -1;
+  opacity: 0;
+  position: fixed;
+  padding-top: 5vh;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 0;
+  background-color: rgba(0,0,0,0.5);
+  transition: opacity 0.2s ease-in-out;
+}
+
+.modal-content {
+  position: relative;
+  background-color: white;
+  padding: 20px;
+  margin: auto;
+  width: 75%;
+  transform: scale(0);
+  transition: 0.2s ease-in-out;
+}
+
+.modal-content.active,
+.modal.active {
+  z-index: 1;
+  opacity: 1;
+}
+
+.modal.active {
+  height: 100%;
+}
+
+.modal-content.active {
+  transform: scale(1);
+}

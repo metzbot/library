@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +9,46 @@
   <script src="./script.js" defer></script>
   <title>Document</title>
 </head>
+
 <body>
-  
+
+  <header>
+    <h1>library</h1>
+  </header>
+
+  <div class='content'>
+
+    <button id='add-book-button'>+Add Book</button>
+    <table class='u-full-width' id='library-table'>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Pages</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id='library-table-body'>
+      </tbody>
+    </table>
+
+  </div>
+
+  <div class='modal'>
+    <div class='modal-content' id='add-book-modal'>
+      <form id='add-book-form'>
+        <h3>add new book</h3>
+        <input type='text' name='title' id='title' placeholder='Title' required>
+        <input type='text' name='author' id='author' placeholder='Author' required>
+        <input type='number' name='pages' id='pages' placeholder='# Pages'>
+        <input type='checkbox' name='read' id='read'>
+        <label for='read'>Have you read it?</label>
+        <button type='submit'>add</button>
+      </form>
+    </div>
+  </div>
+
+
 </body>
+
 </html>
