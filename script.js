@@ -116,7 +116,19 @@ const addBookRow = (Book) => {
     removeBook(row);
     myLibrary.sort(sortLibrary);
     updateLibraryTable();
-    console.log(row);
+  });
+
+  readButton.addEventListener('click', (e) => {
+    let row = e.target.parentNode.parentNode.cells[0].textContent;
+    let readStatus = myLibrary.find(e => e.title == row);
+
+    if (readStatus.read) {
+      readButton.textContent = 'Unread';
+      myLibrary.find(e => e.title == row).read = false;
+    } else {
+    readButton.textContent = 'Read';
+    myLibrary.find(e => e.title == row).read = true;
+    }
   });
 
   libraryTable.appendChild(row);
