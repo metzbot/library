@@ -155,6 +155,12 @@ window.addEventListener('click', function(e) {
     addBookModal.classList.toggle('active');
   }
 });
+window.addEventListener('touchend', function(e) {
+  if(e.target == modal) {
+    modal.classList.toggle('active');
+    addBookModal.classList.toggle('active');
+  }
+});
 
 
 
