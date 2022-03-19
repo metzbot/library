@@ -4,6 +4,7 @@ data structures
 
 let myLibrary = [];
 
+//constructor function for Book objects
 function Book(
   title = 'Unknown',
   author = 'Unknown',
@@ -15,17 +16,13 @@ function Book(
     this.read = read;
 }
 
+//pushes new Book objects into library array, then sorts it
 function addBookToLibrary(newBook) {
-  // let newBook = {
-  //   title: title,
-  //   author: author,
-  //   pages: pages,
-  //   read: read
-  // }
   myLibrary.push(newBook);
   myLibrary.sort(sortLibrary);
 }
 
+//Sorts library array by title properties of Book objects
 function sortLibrary(a, b) {
   const titleA = a.title.toUpperCase();
   const titleB = b.title.toUpperCase();
@@ -42,6 +39,7 @@ function isInLibrary(newBook) {
   return myLibrary.some((Book) => Book.title == newBook.title)
 }
 
+//Not being used at all. Useless?
 function isRead(book) {
   if (this.read) return this.read = false;
   return this.read = true;
@@ -196,8 +194,10 @@ local storage
 
 
 //testing book entries
-myLibrary.push(new Book('A Feast for Crows', 'Lincoln/Child', 350, true));
-myLibrary.push(new Book('American Gods', 'Neil Gaiman', 600, true));
-myLibrary.push(new Book('The Naked God', 'Peter Hamilton', 1200, true));
+myLibrary.push(new Book('Still Life With Crows', 'Preston/Child', 480, true));
+myLibrary.push(new Book('American Gods', 'Neil Gaiman', 465, true));
+myLibrary.push(new Book('The Naked God', 'Peter Hamilton', 1174, true));
+myLibrary.push(new Book (`The Hitchhiker's Guide to the Galaxy
+`, 'Douglas Adams', 208, true));
 myLibrary.sort(sortLibrary);
 updateLibraryTable();
