@@ -64,3 +64,12 @@ table of contents
 .modal-content.active {
   transform: scale(1);
 }
+
+#add-book-error-message {
+  display: none;
+  color: red;
+}
+
+#add-book-error-message.active {
+  display: block;
+}

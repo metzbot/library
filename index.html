@@ -6,6 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Material+Icons">
   <script src="./script.js" defer></script>
   <title>Document</title>
 </head>
@@ -26,6 +28,7 @@
           <th>Author</th>
           <th>Pages</th>
           <th>Status</th>
+          <th></th>
         </tr>
       </thead>
       <tbody id='library-table-body'>
@@ -39,6 +42,7 @@
       <form id='add-book-form'>
         <h3>add new book</h3>
         <input type='text' name='title' id='title' placeholder='Title' required>
+        <p class='error-message' id='add-book-error-message'></p>
         <input type='text' name='author' id='author' placeholder='Author' required>
         <input type='number' name='pages' id='pages' placeholder='# Pages'>
         <input type='checkbox' name='read' id='read'>

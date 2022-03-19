@@ -27,19 +27,19 @@ function addBookToLibrary(newBook) {
 }
 
 function sortLibrary(a, b) {
-  const titleA = a.title.toUpperCase;
-  const titleB = b.title.toUpperCase;
+  const titleA = a.title.toUpperCase();
+  const titleB = b.title.toUpperCase();
   if (titleA < titleB) return -1;
   if (titleA > titleB) return 1;
   return 0;
 }
 
 function removeBook(title) {
-  this.library = this.myLibrary.filter((book) => book.title !== title)
+  myLibrary = myLibrary.filter((book) => book.title !== title)
 }
 
 function isInLibrary(newBook) {
-  return myLibrary.some((newBook) => Book.title === newBook.title)
+  return myLibrary.some((Book) => Book.title == newBook.title)
 }
 
 function isRead(book) {
@@ -51,11 +51,6 @@ function getBook(title) {
   return this.myLibrary.some((book) => book.title === title);
 }
 
-//temporary manual books
-// addBookToLibrary('The Naked God', 'Peter Hamilton', 600, true);
-// addBookToLibrary('A Feast For Crows', 'Lincoln/Child', 300, true);
-// addBookToLibrary('American Gods', 'Neil Gaiman', 200, true);
-
 /* ==
 UI/UX
 == */
@@ -66,11 +61,14 @@ const addBookButton = document.getElementById('add-book-button');
 const modal = document.querySelector('.modal');
 const addBookModal = document.getElementById('add-book-modal');
 const addBookForm = document.getElementById('add-book-form');
+const errorMessageAddBook = document.getElementById('add-book-error-message');
 
 //Functions
 const toggleAddBookModal = () => {
   addBookModal.classList.toggle('active');
   modal.classList.toggle('active');
+  errorMessageAddBook.classList.remove('active');
+  addBookForm.reset();
 }
 
 const updateLibraryTable = () => {
@@ -85,8 +83,10 @@ const addBookRow = (Book) => {
   const title = document.createElement('td');
   const author = document.createElement('td');
   const pages = document.createElement('td');
-  const read = document.createElement('td');
+  const readButtonCell = document.createElement('td');
   const readButton = document.createElement('button');
+  const removeButtonCell = document.createElement('td');
+  const removeButton = document.createElement('button');
 
   title.textContent = `${Book.title}`;
   author.textContent = `${Book.author}`;
@@ -98,11 +98,27 @@ const addBookRow = (Book) => {
     readButton.textContent = 'Not read';
   }
 
+  removeButton.classList.add('material-icons');
+  removeButton.textContent = 'delete_forever';
+
   row.appendChild(title);
   row.appendChild(author);
   row.appendChild(pages);
-  row.appendChild(read);
-  read.appendChild(readButton);
+
+  readButtonCell.appendChild(readButton);
+  row.appendChild(readButtonCell);
+
+  removeButtonCell.appendChild(removeButton);
+  row.appendChild(removeButtonCell);
+
+  removeButton.addEventListener('click', (e) => {
+    let row = e.target.parentNode.parentNode.cells[0].textContent;
+    removeBook(row);
+    myLibrary.sort(sortLibrary);
+    updateLibraryTable();
+    console.log(row);
+  });
+
   libraryTable.appendChild(row);
 }
 
@@ -111,8 +127,8 @@ const addBook = (e) => {
   const newBook = getBookFromForm()
 
   if (isInLibrary(newBook)) {
-    errorMessage.textContent = 'You already have this book';
-    errorMessage.classList.toggle('active');
+    errorMessageAddBook.textContent = 'You already have this book';
+    errorMessageAddBook.classList.add('active');
     return;
   }
 
@@ -146,3 +162,11 @@ window.addEventListener('click', function(e) {
 /* ==========
 local storage
 ========== */
+
+
+//testing book entries
+myLibrary.push(new Book('A Feast for Crows', 'Lincoln/Child', 350, true));
+myLibrary.push(new Book('American Gods', 'Neil Gaiman', 600, true));
+myLibrary.push(new Book('The Naked God', 'Peter Hamilton', 1200, true));
+myLibrary.sort(sortLibrary);
+updateLibraryTable();
