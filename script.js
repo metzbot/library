@@ -55,7 +55,7 @@ function getBook(title) {
 UI/UX
 == */
 
-//DOM Elements
+//DOM Element Queries
 const libraryTable = document.getElementById('library-table-body');
 const addBookButton = document.getElementById('add-book-button');
 const modal = document.querySelector('.modal');
@@ -63,7 +63,7 @@ const addBookModal = document.getElementById('add-book-modal');
 const addBookForm = document.getElementById('add-book-form');
 const errorMessageAddBook = document.getElementById('add-book-error-message');
 
-//Functions
+//Toggles visibility and active state of form modal
 const toggleAddBookModal = () => {
   addBookModal.classList.toggle('active');
   modal.classList.toggle('active');
@@ -71,6 +71,7 @@ const toggleAddBookModal = () => {
   addBookForm.reset();
 }
 
+//Resets table and then adds a row for each Book in the array
 const updateLibraryTable = () => {
   libraryTable.innerHTML = '';
   for (let Book of myLibrary) {
@@ -78,6 +79,12 @@ const updateLibraryTable = () => {
   }
 }
 
+/* ========================================
+Sprawling function. Needs to be refactored.
+Creates new rows in the DOM library table,
+adds event listeners for created buttons.
+Can these be relocated?
+=========================================*/
 const addBookRow = (Book) => {
   const row = document.createElement('tr');
   const title = document.createElement('td');
@@ -90,7 +97,7 @@ const addBookRow = (Book) => {
 
   title.textContent = `${Book.title}`;
   author.textContent = `${Book.author}`;
-  pages.textContent = `${Book.pages} pages`;
+  pages.textContent = `${Book.pages}`;
   
   if (Book.read) {
     readButton.textContent = 'Read';
@@ -134,6 +141,9 @@ const addBookRow = (Book) => {
   libraryTable.appendChild(row);
 }
 
+//Calls getBookFromForm, checks if it exists in array, and
+//adds it if it doesn't exist. Then updates library table
+//in the DOM, and hides the form modal.
 const addBook = (e) => {
   e.preventDefault()
   const newBook = getBookFromForm()
@@ -149,6 +159,7 @@ const addBook = (e) => {
   toggleAddBookModal();
 }
 
+//Gets user input in form modal and returns new Book object
 const getBookFromForm = () => {
   const title = document.getElementById('title').value;
   const author = document.getElementById('author').value;
@@ -157,8 +168,10 @@ const getBookFromForm = () => {
   return new Book(title, author, pages, read);
 }
 
+//Global event listeners
 addBookForm.onsubmit = addBook;
 addBookButton.addEventListener('click', toggleAddBookModal);
+
 
 //Closes open modal if user clicks outside of it
 window.addEventListener('click', function(e) {
