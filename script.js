@@ -3,6 +3,7 @@ data structures
 ============ */
 
 let myLibrary = [];
+let currentSort = 'title';
 
 //constructor function for Book objects
 function Book(
@@ -19,11 +20,51 @@ function Book(
 //pushes new Book objects into library array, then sorts it
 function addBookToLibrary(newBook) {
   myLibrary.push(newBook);
-  myLibrary.sort(sortLibrary);
+  sortArray(currentSort);
+}
+
+//Base sort function, sorts and sets sort-type identifier
+function sortArray(sortType) {
+  switch (sortType) {
+    case 'title':
+      myLibrary.sort(sortLibraryTitle);
+      currentSort = 'title';
+      break;
+    case 'titleBackward':
+      myLibrary.sort(sortLibraryTitle).reverse();
+      //myLibrary.reverse();
+      currentSort = 'titleBackward';
+      break;
+    case 'author':
+      myLibrary.sort(sortLibraryAuthor);
+      currentSort = 'author';
+      break;
+    case 'authorBackward':
+      myLibrary.sort(sortLibraryAuthor).reverse();
+      //myLibrary.reverse();
+      currentSort = 'authorBackward';
+      break;
+    case 'pages':
+      myLibrary.sort(sortLibraryPages);
+      currentSort = 'pages';
+      break;
+    case 'pagesBackward':
+      myLibrary.sort(sortLibraryPages).reverse();
+      //myLibrary.reverse();
+      currentSort = 'pagesBackward';
+      break;
+    case 'read':
+      myLibrary.sort(sortLibraryRead);
+      currentSort = 'read';
+      break;
+    default:
+      myLibrary.sort(sortLibraryRead).reverse();
+      currentSort = 'readBackward';
+  }
 }
 
 //Sorts library array alphabetically by title properties of Book objects
-function sortLibrary(a, b) {
+function sortLibraryTitle(a, b) {
   const titleA = a.title.toUpperCase();
   const titleB = b.title.toUpperCase();
   if (titleA < titleB) return -1;
@@ -104,19 +145,19 @@ const updateLibraryTable = () => {
 
 //Sorting buttons on table headers
 sortTitleButton.addEventListener('click',() => {
-  myLibrary.sort(sortLibrary);
+  currentSort === 'title' ? sortArray('titleBackward') : sortArray('title');
   updateLibraryTable();
 });
 sortAuthorButton.addEventListener('click',() => {
-  myLibrary.sort(sortLibraryAuthor);
+  currentSort === 'author' ? sortArray('authorBackward') : sortArray('author');
   updateLibraryTable();
 });
 sortPagesButton.addEventListener('click',() => {
-  myLibrary.sort(sortLibraryPages);
+  currentSort === 'pages' ? sortArray('pagesBackward') : sortArray('pages');
   updateLibraryTable();
 });
 sortReadButton.addEventListener('click',() => {
-  myLibrary.sort(sortLibraryRead);
+  currentSort === 'read' ? sortArray('readBackward') : sortArray('read');
   updateLibraryTable();
 });
 
@@ -162,7 +203,7 @@ const addBookRow = (Book) => {
   removeButton.addEventListener('click', (e) => {
     let row = e.target.parentNode.parentNode.cells[0].textContent;
     removeBook(row);
-    myLibrary.sort(sortLibrary);
+    sortArray(currentSort);
     updateLibraryTable();
   });
 
@@ -242,5 +283,5 @@ myLibrary.push(new Book('American Gods', 'Neil Gaiman', 465, true));
 myLibrary.push(new Book('The Naked God', 'Peter Hamilton', 1174, true));
 myLibrary.push(new Book (`The Hitchhiker's Guide to the Galaxy
 `, 'Douglas Adams', 208, true));
-myLibrary.sort(sortLibrary);
+sortArray(currentSort);
 updateLibraryTable();
