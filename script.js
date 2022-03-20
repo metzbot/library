@@ -32,7 +32,6 @@ function sortArray(sortType) {
       break;
     case 'titleBackward':
       myLibrary.sort(sortLibraryTitle).reverse();
-      //myLibrary.reverse();
       currentSort = 'titleBackward';
       break;
     case 'author':
@@ -41,7 +40,6 @@ function sortArray(sortType) {
       break;
     case 'authorBackward':
       myLibrary.sort(sortLibraryAuthor).reverse();
-      //myLibrary.reverse();
       currentSort = 'authorBackward';
       break;
     case 'pages':
@@ -50,7 +48,6 @@ function sortArray(sortType) {
       break;
     case 'pagesBackward':
       myLibrary.sort(sortLibraryPages).reverse();
-      //myLibrary.reverse();
       currentSort = 'pagesBackward';
       break;
     case 'read':
@@ -180,6 +177,8 @@ const addBookRow = (Book) => {
   title.textContent = `${Book.title}`;
   author.textContent = `${Book.author}`;
   pages.textContent = `${Book.pages}`;
+  readButton.classList.add('read-button');
+  removeButton.classList.add('remove-button');
   
   if (Book.read) {
     readButton.textContent = 'Read';

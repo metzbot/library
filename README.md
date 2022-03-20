@@ -4,4 +4,5 @@ basic library applet for storing data on books
 
 to do:
 
-style it
+actual database - local storage for starters
+refine styling - in particular add book form

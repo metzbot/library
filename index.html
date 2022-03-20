@@ -3,52 +3,60 @@
 
 <head>
   <meta charset="UTF-8">
+  <title>library</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./styles.css">
-  <link rel="stylesheet"
-  href="https://fonts.googleapis.com/css?family=Material+Icons">
+  <link rel="stylesheet" href="./normalize.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons">
   <script src="./script.js" defer></script>
   <title>Document</title>
 </head>
 
 <body>
 
-  <header>
-    <h1>library</h1>
-  </header>
+  <div class='container'>
 
-  <div class='content'>
+    <div class='content'>
+      <header>
+        <h1>library</h1>
+      </header>
 
-    <button id='add-book-button'>+Add Book</button>
-    <table class='u-full-width' id='library-table'>
-      <thead>
-        <tr>
-          <th><button class ='table-header-button' id='sort-title-button'>Title</button></th>
-          <th><button class ='table-header-button' id='sort-author-button'>Author</button></th>
-          <th><button class ='table-header-button' id='sort-pages-button'>Pages</button></th>
-          <th><button class ='table-header-button' id='sort-read-button'>Status</button></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody id='library-table-body'>
-      </tbody>
-    </table>
+      <div id='add-book-wrapper'>
+        <button id='add-book-button'>add book</button>
+      </div>
+      <table class='u-full-width' id='library-table'>
+        <thead>
+          <tr>
+            <th><button class='table-header-button' id='sort-title-button'>title</button></th>
+            <th><button class='table-header-button' id='sort-author-button'>author</button></th>
+            <th><button class='table-header-button' id='sort-pages-button'>pages</button></th>
+            <th><button class='table-header-button' id='sort-read-button'>status</button></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id='library-table-body'>
+        </tbody>
+      </table>
 
-  </div>
 
-  <div class='modal'>
-    <div class='modal-content' id='add-book-modal'>
-      <form id='add-book-form'>
-        <h3>add new book</h3>
-        <input type='text' name='title' id='title' placeholder='Title' required>
-        <p class='error-message' id='add-book-error-message'></p>
-        <input type='text' name='author' id='author' placeholder='Author' required>
-        <input type='number' name='pages' id='pages' placeholder='# Pages'>
-        <input type='checkbox' name='read' id='read'>
-        <label for='read'>Have you read it?</label>
-        <button type='submit'>add</button>
-      </form>
+
+      <div class='modal'>
+        <div class='modal-content' id='add-book-modal'>
+          <form id='add-book-form'>
+            <h3>add new book</h3>
+            <input type='text' name='title' id='title' placeholder='Title' required>
+            <p class='error-message' id='add-book-error-message'></p>
+            <input type='text' name='author' id='author' placeholder='Author' required>
+            <input type='number' name='pages' id='pages' placeholder='# Pages'>
+            <div class='checkbox'>
+              <label for='read'>Have you read it?</label>
+              <input type='checkbox' name='read' id='read'>
+            </div>
+            <button type='submit' id='form-submit'>add</button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 
