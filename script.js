@@ -22,13 +22,34 @@ function addBookToLibrary(newBook) {
   myLibrary.sort(sortLibrary);
 }
 
-//Sorts library array by title properties of Book objects
+//Sorts library array alphabetically by title properties of Book objects
 function sortLibrary(a, b) {
   const titleA = a.title.toUpperCase();
   const titleB = b.title.toUpperCase();
   if (titleA < titleB) return -1;
   if (titleA > titleB) return 1;
   return 0;
+}
+
+//Sorts library array alphabetically by author properties of Book objects
+function sortLibraryAuthor(a, b) {
+  const authorA = a.author.toUpperCase();
+  const authorB = b.author.toUpperCase();
+  if (authorA < authorB) return -1;
+  if (authorA > authorB) return 1;
+  return 0;
+}
+
+//Sorts library array numerically by page count
+function sortLibraryPages(a, b) {
+  if (a.pages < b.pages) return -1;
+  if (a.pages > b.pages) return 1;
+  return 0;
+}
+
+//Sorts library array by read status
+function sortLibraryRead(a, b) {
+  return (a.read === b.read) ? 0 : a.read ? -1 : 1;
 }
 
 function removeBook(title) {
@@ -60,6 +81,10 @@ const modal = document.querySelector('.modal');
 const addBookModal = document.getElementById('add-book-modal');
 const addBookForm = document.getElementById('add-book-form');
 const errorMessageAddBook = document.getElementById('add-book-error-message');
+const sortTitleButton = document.getElementById('sort-title-button');
+const sortAuthorButton = document.getElementById('sort-author-button');
+const sortPagesButton = document.getElementById('sort-pages-button');
+const sortReadButton = document.getElementById('sort-read-button');
 
 //Toggles visibility and active state of form modal
 const toggleAddBookModal = () => {
@@ -76,6 +101,24 @@ const updateLibraryTable = () => {
     addBookRow(Book);
   }
 }
+
+//Sorting buttons on table headers
+sortTitleButton.addEventListener('click',() => {
+  myLibrary.sort(sortLibrary);
+  updateLibraryTable();
+});
+sortAuthorButton.addEventListener('click',() => {
+  myLibrary.sort(sortLibraryAuthor);
+  updateLibraryTable();
+});
+sortPagesButton.addEventListener('click',() => {
+  myLibrary.sort(sortLibraryPages);
+  updateLibraryTable();
+});
+sortReadButton.addEventListener('click',() => {
+  myLibrary.sort(sortLibraryRead);
+  updateLibraryTable();
+});
 
 /* ========================================
 Sprawling function. Needs to be refactored.
@@ -100,7 +143,7 @@ const addBookRow = (Book) => {
   if (Book.read) {
     readButton.textContent = 'Read';
   } else {
-    readButton.textContent = 'Not read';
+    readButton.textContent = 'Unread';
   }
 
   removeButton.classList.add('material-icons');
