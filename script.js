@@ -115,8 +115,10 @@ UI/UX
 //DOM Element Queries
 const libraryTable = document.getElementById('library-table-body');
 const addBookButton = document.getElementById('add-book-button');
-const modal = document.querySelector('.modal');
-const addBookModal = document.getElementById('add-book-modal');
+const modal = document.getElementById('modal-add-book');
+const removeBookBackgroundModal = document.getElementById('modal-remove-book');
+const modalContent = document.querySelector('.modal-content');
+const removeModal = document.getElementById('remove-entry-modal');
 const addBookForm = document.getElementById('add-book-form');
 const errorMessageAddBook = document.getElementById('add-book-error-message');
 const sortTitleButton = document.getElementById('sort-title-button');
@@ -126,10 +128,16 @@ const sortReadButton = document.getElementById('sort-read-button');
 
 //Toggles visibility and active state of form modal
 const toggleAddBookModal = () => {
-  addBookModal.classList.toggle('active');
+  modalContent.classList.toggle('active');
   modal.classList.toggle('active');
   errorMessageAddBook.classList.remove('active');
   addBookForm.reset();
+}
+
+//Toggles visibility and active state of remove book modal
+const toggleRemoveBookModal = () => {
+  removeBookBackgroundModal.classList.toggle('active');
+  removeModal.classList.toggle('active');
 }
 
 //Resets table and then adds a row for each Book in the array
@@ -180,11 +188,7 @@ const addBookRow = (Book) => {
   readButton.classList.add('read-button');
   removeButton.classList.add('remove-button');
   
-  if (Book.read) {
-    readButton.textContent = 'Read';
-  } else {
-    readButton.textContent = 'Unread';
-  }
+  Book.read ? readButton.textContent = 'Read' : readButton.textContent = 'Unread';
 
   removeButton.classList.add('material-icons');
   removeButton.textContent = 'delete_forever';
@@ -200,10 +204,7 @@ const addBookRow = (Book) => {
   row.appendChild(removeButtonCell);
 
   removeButton.addEventListener('click', (e) => {
-    let row = e.target.parentNode.parentNode.cells[0].textContent;
-    removeBook(row);
-    sortArray(currentSort);
-    updateLibraryTable();
+    removeButtonFunc(e);
   });
 
   readButton.addEventListener('click', (e) => {
@@ -220,6 +221,25 @@ const addBookRow = (Book) => {
   });
 
   libraryTable.appendChild(row);
+}
+
+//remove button handler
+const removeButtonFunc = (e) => {
+  let row = e.target.parentNode.parentNode.cells[0].textContent;
+  toggleRemoveBookModal();
+  document.getElementById('book-delete').innerHTML = row;
+  const yesRemove = document.getElementById('yes-remove');
+  const noRemove = document.getElementById('no-remove');
+  
+  yesRemove.addEventListener('click', () => {
+    removeBook(row);
+    sortArray(currentSort);
+    updateLibraryTable();
+  });
+
+  noRemove.addEventListener('click', () => {
+    toggleRemoveBookModal();
+  });
 }
 
 //Calls getBookFromForm, checks if it exists in array, and
@@ -256,15 +276,23 @@ addBookButton.addEventListener('click', toggleAddBookModal);
 
 //Closes open modal if user clicks outside of it
 window.addEventListener('click', function(e) {
-  if(e.target == modal) {
+  if (modalContent.classList.contains('active') && e.target == modal) {
     modal.classList.toggle('active');
-    addBookModal.classList.toggle('active');
+    modalContent.classList.toggle('active');
+  }
+  if (removeModal.classList.contains('active') && ((e.target == modal) || (e.target == removeBookBackgroundModal))) {
+    removeBookBackgroundModal.classList.toggle('active');
+    removeModal.classList.toggle('active');
   }
 });
 window.addEventListener('touchend', function(e) {
-  if(e.target == modal) {
+  if (modalContent.classList.contains('active') && e.target == modal) {
     modal.classList.toggle('active');
-    addBookModal.classList.toggle('active');
+    modalContent.classList.toggle('active');
+  }
+  if (removeModal.classList.contains('active') && ((e.target == modal) || (e.target == removeBookBackgroundModal))) {
+    removeBookBackgroundModal.classList.toggle('active');
+    removeModal.classList.toggle('active');
   }
 });
 

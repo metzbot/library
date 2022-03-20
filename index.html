@@ -41,7 +41,7 @@
 
 
 
-      <div class='modal'>
+      <div class='modal' id='modal-add-book'>
         <div class='modal-content' id='add-book-modal'>
           <form id='add-book-form'>
             <h3>add new book</h3>
@@ -57,8 +57,20 @@
           </form>
         </div>
       </div>
+
+
+      <div class='modal' id='modal-remove-book'>
+        <div class='modal-content' id='remove-entry-modal'>
+          <form id='add-book-form'>
+            <h3 id='confirm-delete-prompt'>Are you sure you want to delete <i><span id="book-delete"></span></i>?</h3>
+            <button id='yes-remove'>yes</button>
+            <button id='no-remove'>no</button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
+
 
 
 </body>
