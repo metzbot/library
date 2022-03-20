@@ -235,6 +235,7 @@ const removeButtonFunc = (e) => {
     removeBook(row);
     sortArray(currentSort);
     updateLibraryTable();
+    toggleRemoveBookModal();
   });
 
   noRemove.addEventListener('click', () => {
