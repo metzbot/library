@@ -4,6 +4,7 @@ data structures
 
 let myLibrary = [];
 let currentSort = 'title';
+let deleteMe = '';
 
 //constructor function for Book objects
 function Book(
@@ -125,6 +126,8 @@ const sortTitleButton = document.getElementById('sort-title-button');
 const sortAuthorButton = document.getElementById('sort-author-button');
 const sortPagesButton = document.getElementById('sort-pages-button');
 const sortReadButton = document.getElementById('sort-read-button');
+const yesRemove = document.getElementById('yes-remove');
+const noRemove = document.getElementById('no-remove');
 
 //Toggles visibility and active state of form modal
 const toggleAddBookModal = () => {
@@ -228,19 +231,7 @@ const removeButtonFunc = (e) => {
   let row = e.target.parentNode.parentNode.cells[0].textContent;
   toggleRemoveBookModal();
   document.getElementById('book-delete').innerHTML = row;
-  const yesRemove = document.getElementById('yes-remove');
-  const noRemove = document.getElementById('no-remove');
-  
-  yesRemove.addEventListener('click', () => {
-    removeBook(row);
-    sortArray(currentSort);
-    updateLibraryTable();
-    toggleRemoveBookModal();
-  });
-
-  noRemove.addEventListener('click', () => {
-    toggleRemoveBookModal();
-  });
+  deleteMe = row;
 }
 
 //Calls getBookFromForm, checks if it exists in array, and
@@ -273,27 +264,34 @@ const getBookFromForm = () => {
 //Global event listeners
 addBookForm.onsubmit = addBook;
 addBookButton.addEventListener('click', toggleAddBookModal);
+yesRemove.addEventListener('click', () => {
+  removeBook(deleteMe);
+  sortArray(currentSort);
+  updateLibraryTable();
+  toggleRemoveBookModal();
+});
+noRemove.addEventListener('click', () => toggleRemoveBookModal());
 
 
 //Closes open modal if user clicks outside of it
 window.addEventListener('click', function(e) {
   if (modalContent.classList.contains('active') && e.target == modal) {
-    modal.classList.toggle('active');
-    modalContent.classList.toggle('active');
+    modal.classList.remove('active');
+    modalContent.classList.remove('active');
   }
   if (removeModal.classList.contains('active') && ((e.target == modal) || (e.target == removeBookBackgroundModal))) {
-    removeBookBackgroundModal.classList.toggle('active');
-    removeModal.classList.toggle('active');
+    removeBookBackgroundModal.classList.remove('active');
+    removeModal.classList.remove('active');
   }
 });
 window.addEventListener('touchend', function(e) {
   if (modalContent.classList.contains('active') && e.target == modal) {
-    modal.classList.toggle('active');
-    modalContent.classList.toggle('active');
+    modal.classList.remove('active');
+    modalContent.classList.remove('active');
   }
   if (removeModal.classList.contains('active') && ((e.target == modal) || (e.target == removeBookBackgroundModal))) {
-    removeBookBackgroundModal.classList.toggle('active');
-    removeModal.classList.toggle('active');
+    removeBookBackgroundModal.classList.remove('active');
+    removeModal.classList.remove('active');
   }
 });
 
