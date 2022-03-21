@@ -240,19 +240,21 @@ input[type="button"].button-primary:focus {
   border-color: #1EAEDB;
 }
 
-.table-header-button {
-  padding: 0;
-  border: none;
-}
-
-.read-button {
-  padding: 0;
-  border: none;
-}
-
+.table-header-button,
+.read-button,
 .remove-button {
   padding: 0;
   border: none;
+}
+
+#yes-remove,
+#no-remove {
+  width: 10rem;
+  font-weight: 900;
+}
+
+#yes-remove {
+  margin-bottom: 2rem;
 }
 
 #add-book-wrapper {
